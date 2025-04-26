@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import { useFetch } from '@/shared/composables/useFetch'
 import ImageCard from './components/image-card/ImageCard.vue'
-import { useGetRandomImages } from './composables/useGetRandomImages'
+import { getRandomImages } from './api/get-random-images'
 
 const searchModel = defineModel<string>()
 
-const { loading, error, images } = useGetRandomImages()
+const { loading, error, data } = useFetch({ fetchFunc: getRandomImages })
 </script>
 <template>
   <div class="page">
@@ -16,7 +17,7 @@ const { loading, error, images } = useGetRandomImages()
     />
     <div class="images-container" v-if="!loading && !error">
       <ImageCard
-        v-for="(item, index) in images"
+        v-for="(item, index) in data"
         :key="index"
         :img-src="item.urls.regular"
         :download-link="item.links.download"

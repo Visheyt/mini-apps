@@ -8,6 +8,10 @@ export const getRandomImages = async () => {
 
     return data
   } catch (err) {
-    console.error(err)
+    if (err instanceof Error) {
+      throw new Error(err.message)
+    } else {
+      throw new Error('Something went wrong')
+    }
   }
 }
