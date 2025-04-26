@@ -1,36 +1,52 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
-import { getRandomImages } from '../api/get-random-images'
-import type { ImageResponse } from '../api/types'
+import ImageCard from './components/image-card/ImageCard.vue'
+import { useGetRandomImages } from './composables/useGetRandomImages'
 
 const searchModel = defineModel<string>()
 
-const images = ref<ImageResponse[]>([])
-onMounted(() => {
-  getRandomImages()
-    .then((res) => {
-      if (res?.length) {
-        images.value = res
-      }
-    })
-    .catch((err) => console.log(err))
-})
+const { loading, error, images } = useGetRandomImages()
 </script>
 <template>
   <div class="page">
-    <input type="search" placeholder="Enter your search request" v-model="searchModel" />
-    <div v-for="(item, index) in images" :key="index">
-      <img :src="item.urls.regular" alt="" />
+    <input
+      type="search"
+      placeholder="Enter your search request"
+      v-model="searchModel"
+      class="input"
+    />
+    <div class="images-container" v-if="!loading && !error">
+      <ImageCard
+        v-for="(item, index) in images"
+        :key="index"
+        :img-src="item.urls.regular"
+        :download-link="item.links.download"
+      />
     </div>
+    <div v-else>LOADING....</div>
   </div>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+.images-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  flex: 1;
+  justify-content: center;
+}
+.input {
+  padding: 10px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 550px;
+  border: none;
+  box-shadow: 0 0 10px rgb(164, 164, 164);
+  transition: box-shadow 0.5s ease;
+}
+.input:focus-visible {
+  border: none;
+  outline: none;
+  box-shadow: 0 0 10px rgb(69, 69, 69);
 }
 </style>
