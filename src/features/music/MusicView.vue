@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
+  <main class="page">
     <h1>This is music page</h1>
-  </div>
+  </main>
 </template>
 
 <style>
