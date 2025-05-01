@@ -1,5 +1,5 @@
 import { onMounted, ref } from 'vue'
-import { getRandomImages } from '../api/get-random-images'
+import { getRandomImages } from '../api/getRandomImages'
 import type { ImageResponse } from '../api/types'
 
 export const useGetRandomImages = () => {

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useFetch } from '@/shared/composables/useFetch'
 import ImageCard from './components/image-card/ImageCard.vue'
-import { getRandomImages } from './api/get-random-images'
+import { getRandomImages } from './api/getRandomImages'
 import { onMounted } from 'vue'
 import type { ImageResponse } from './api/types'
 
