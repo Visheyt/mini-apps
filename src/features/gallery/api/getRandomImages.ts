@@ -3,7 +3,9 @@ import type { ImageResponse } from './types'
 
 export const getRandomImages = async () => {
   try {
-    const response = await fetch(`${baseUrl}random?count=30&orientation=landscape&client_id=${key}`)
+    const response = await fetch(
+      `${baseUrl}photos/random?count=30&orientation=landscape&client_id=${key}`,
+    )
     const data: ImageResponse[] = await response.json()
 
     return data

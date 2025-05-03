@@ -4,14 +4,19 @@ import ImageCard from './components/image-card/ImageCard.vue'
 import { getRandomImages } from './api/getRandomImages'
 import { onMounted } from 'vue'
 import type { ImageResponse } from './api/types'
+import { getImages } from './api/getImages'
 
-const searchModel = defineModel<string>()
+const searchModel = defineModel<string>({ default: '' })
 
 const { loading, error, data, execute } = useFetch<ImageResponse[]>()
 
 onMounted(() => {
   execute(getRandomImages)
 })
+
+const handleSearch = () => {
+  execute(() => getImages(searchModel.value))
+}
 </script>
 <template>
   <div class="page">
@@ -20,6 +25,7 @@ onMounted(() => {
       placeholder="Enter your search request"
       v-model="searchModel"
       class="input"
+      @keyup.enter="handleSearch"
     />
     <div class="images-container" v-if="!loading && !error">
       <ImageCard

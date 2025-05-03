@@ -1,12 +1,12 @@
 import { baseUrl, key } from '.'
 import type { ImageResponse } from './types'
 
-export const getRandomImages = async (query: string) => {
+export const getImages = async (query: string): Promise<ImageResponse[]> => {
   try {
-    const response = await fetch(`${baseUrl}?page=1&query=${query}&client_id=${key}`)
-    const data: ImageResponse[] = await response.json()
+    const response = await fetch(`${baseUrl}search/photos?page=1&query=${query}&client_id=${key}`)
+    const json = await response.json()
 
-    return data
+    return json.results
   } catch (err) {
     if (err instanceof Error) {
       throw new Error(err.message)

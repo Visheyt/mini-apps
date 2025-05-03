@@ -34,6 +34,7 @@ const handleClick = useDownloadImage(downloadLink)
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  object-fit: cover;
 }
 @media (min-width: 768px) {
   .gradient-overlay {
