@@ -36,7 +36,27 @@ const handleClick = useDownloadImage(downloadLink)
   border-radius: 5px;
   object-fit: cover;
 }
-@media (min-width: 768px) {
+.mobile-btn {
+  border-radius: 50%;
+  background-color: rgba(242, 242, 242, 0.648);
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-weight: 900;
+  font-size: 15px;
+  padding: 5px;
+}
+.mobile-btn svg {
+  width: 10px;
+  height: 10px;
+}
+@media (width> 768px) {
   .gradient-overlay {
     position: absolute;
     top: 0;
@@ -81,25 +101,5 @@ const handleClick = useDownloadImage(downloadLink)
   .mobile-btn {
     display: none;
   }
-}
-.mobile-btn {
-  border-radius: 50%;
-  background-color: rgba(242, 242, 242, 0.648);
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  font-weight: 900;
-  font-size: 15px;
-  padding: 5px;
-}
-.mobile-btn svg {
-  width: 10px;
-  height: 10px;
 }
 </style>
