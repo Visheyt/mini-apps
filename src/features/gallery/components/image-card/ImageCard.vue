@@ -29,11 +29,11 @@ const handleClick = useDownloadImage(downloadLink)
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  border-radius: 5px;
 }
 .card-img {
   width: 100%;
   height: 100%;
-  border-radius: 5px;
   object-fit: cover;
 }
 .mobile-btn {
