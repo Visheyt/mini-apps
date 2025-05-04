@@ -11,7 +11,7 @@ const handleClick = useDownloadImage(downloadLink)
 </script>
 <template>
   <div class="card">
-    <img :src="imgSrc" alt="" class="card-img" />
+    <img :src="imgSrc" alt="" class="card-img" width="350" height="233" loading="lazy" />
     <div class="gradient-overlay"></div>
     <div class="card-buttons">
       <button @click="handleClick" class="download-btn">Download</button>
@@ -22,14 +22,14 @@ const handleClick = useDownloadImage(downloadLink)
 
 <style>
 .card {
-  display: flex;
   max-width: 350px;
   width: 100%;
-  height: auto;
+  aspect-ratio: 3 / 2;
   position: relative;
   overflow: hidden;
   cursor: pointer;
   border-radius: 5px;
+  display: flex;
 }
 .card-img {
   width: 100%;
@@ -55,6 +55,9 @@ const handleClick = useDownloadImage(downloadLink)
 .mobile-btn svg {
   width: 10px;
   height: 10px;
+}
+.card-buttons {
+  display: none;
 }
 @media (width> 768px) {
   .gradient-overlay {
