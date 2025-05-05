@@ -38,6 +38,9 @@ export const useAudioPlayer = () => {
       trackIndex.value = 0
     }
     setupAudio(trackIndex.value)
+    if (!isPlaying.value) {
+      play()
+    }
   }
 
   const prevTrack = () => {
@@ -47,6 +50,9 @@ export const useAudioPlayer = () => {
       trackIndex.value = musicMockData.length - 1
     }
     setupAudio(trackIndex.value)
+    if (!isPlaying.value) {
+      play()
+    }
   }
 
   return {

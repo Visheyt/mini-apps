@@ -10,6 +10,7 @@ const { isPlaying, pause, play, nextTrack, prevTrack } = useAudioPlayer()
 <template>
   <main class="page">
     <div class="music-container">
+      <div class="album-image"></div>
       <div class="music-buttons">
         <button @click="prevTrack"><PrevIcon /></button>
         <button v-if="!isPlaying" @click="play"><PlayIcon /></button>
@@ -27,6 +28,16 @@ const { isPlaying, pause, play, nextTrack, prevTrack } = useAudioPlayer()
   min-height: 500px;
   border: 1px solid black;
   border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.album-image {
+  width: 100%;
+  background-color: aqua;
+  border-radius: 7px;
+  height: 350px;
 }
 .music-buttons {
   display: flex;
