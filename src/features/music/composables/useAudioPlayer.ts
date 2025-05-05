@@ -6,9 +6,21 @@ export const useAudioPlayer = () => {
   const isPlaying = ref<boolean>(false)
   const trackIndex = ref<number>(0)
 
+  const setupAudio = (index: number) => {
+    if (audioRef.value) {
+      audioRef.value.pause()
+    }
+    audioRef.value = new Audio(musicMockData[index].src)
+    audioRef.value.load()
+
+    if (isPlaying.value) {
+      audioRef.value.play()
+    }
+  }
   onMounted(() => {
-    audioRef.value = new Audio(musicMockData[trackIndex.value].src)
+    setupAudio(trackIndex.value)
   })
+
   const play = () => {
     audioRef.value?.play()
     isPlaying.value = true
@@ -20,13 +32,28 @@ export const useAudioPlayer = () => {
   }
 
   const nextTrack = () => {
-    trackIndex.value += 1
-    audioRef.value?.src = musicMockData[trackIndex.value].src
+    if (trackIndex.value < musicMockData.length - 1) {
+      trackIndex.value += 1
+    } else {
+      trackIndex.value = 0
+    }
+    setupAudio(trackIndex.value)
+  }
+
+  const prevTrack = () => {
+    if (trackIndex.value > 0) {
+      trackIndex.value -= 1
+    } else {
+      trackIndex.value = musicMockData.length - 1
+    }
+    setupAudio(trackIndex.value)
   }
 
   return {
     pause,
     play,
     isPlaying,
+    nextTrack,
+    prevTrack,
   }
 }

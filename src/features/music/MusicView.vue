@@ -5,16 +5,16 @@ import PlayIcon from '@/shared/icons/PlayIcon.vue'
 import PrevIcon from '@/shared/icons/PrevIcon.vue'
 import { useAudioPlayer } from './composables/useAudioPlayer'
 
-const { isPlaying, pause, play } = useAudioPlayer()
+const { isPlaying, pause, play, nextTrack, prevTrack } = useAudioPlayer()
 </script>
 <template>
   <main class="page">
     <div class="music-container">
       <div class="music-buttons">
-        <button><PrevIcon /></button>
+        <button @click="prevTrack"><PrevIcon /></button>
         <button v-if="!isPlaying" @click="play"><PlayIcon /></button>
         <button v-else @click="pause"><PauseIcon /></button>
-        <button><NextIcon /></button>
+        <button @click="nextTrack"><NextIcon /></button>
       </div>
     </div>
   </main>
