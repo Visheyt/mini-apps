@@ -1,16 +1,19 @@
 import { ref, onMounted } from 'vue'
 import { musicMockData } from '../data/music-data'
+import { useAudioDuration } from './useAudioDuration'
 
 export const useAudioPlayer = () => {
   const audioRef = ref<HTMLAudioElement | null>(null)
   const isPlaying = ref<boolean>(false)
   const trackIndex = ref<number>(0)
+  const { duration, currentTime, time } = useAudioDuration(audioRef)
 
   const setupAudio = (index: number) => {
     if (audioRef.value) {
       audioRef.value.pause()
     }
     audioRef.value = new Audio(musicMockData[index].src)
+
     audioRef.value.load()
 
     if (isPlaying.value) {
@@ -61,5 +64,8 @@ export const useAudioPlayer = () => {
     isPlaying,
     nextTrack,
     prevTrack,
+    duration,
+    currentTime,
+    time,
   }
 }
