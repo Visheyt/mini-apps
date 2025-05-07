@@ -6,7 +6,7 @@ export const useAudioPlayer = () => {
   const audioRef = ref<HTMLAudioElement | null>(null)
   const isPlaying = ref<boolean>(false)
   const trackIndex = ref<number>(0)
-  const { duration, currentTime } = useAudioDuration(audioRef)
+  const { duration, currentTime, setCurrentTime } = useAudioDuration(audioRef)
 
   const setupAudio = (index: number) => {
     if (audioRef.value) {
@@ -66,5 +66,6 @@ export const useAudioPlayer = () => {
     prevTrack,
     duration,
     currentTime,
+    setCurrentTime,
   }
 }

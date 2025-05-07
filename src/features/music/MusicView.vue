@@ -6,7 +6,8 @@ import PrevIcon from '@/shared/icons/PrevIcon.vue'
 import { useAudioPlayer } from './composables/useAudioPlayer'
 import { formatTime } from './utils/formatTime'
 
-const { isPlaying, pause, play, nextTrack, prevTrack, duration, currentTime } = useAudioPlayer()
+const { isPlaying, pause, play, nextTrack, prevTrack, duration, currentTime, setCurrentTime } =
+  useAudioPlayer()
 </script>
 <template>
   <main class="page">
@@ -14,7 +15,16 @@ const { isPlaying, pause, play, nextTrack, prevTrack, duration, currentTime } = 
       <div class="album-image"></div>
       <div class="music-info">
         <span>{{ formatTime(currentTime) }}</span>
-        <input type="range" min="0" :max="duration" step="0.01" />
+        <input
+          type="range"
+          min="0"
+          :max="duration"
+          :value="currentTime"
+          step="0.01"
+          @input="
+            (event) => setCurrentTime(Number((event.currentTarget as HTMLInputElement).value))
+          "
+        />
         <span>{{ formatTime(duration) }}</span>
       </div>
       <div class="music-buttons">

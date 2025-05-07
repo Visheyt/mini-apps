@@ -4,6 +4,12 @@ export const useAudioDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
   const duration = ref<number>(0)
   const currentTime = ref<number>(0)
 
+  const setCurrentTime = (newCurrentTime: number) => {
+    if (audioRef.value) {
+      currentTime.value = newCurrentTime
+      audioRef.value.currentTime = newCurrentTime
+    }
+  }
   const handleLoadedMetaData = () => {
     if (audioRef.value?.duration) duration.value = audioRef.value.duration
   }
@@ -32,5 +38,6 @@ export const useAudioDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
   return {
     duration,
     currentTime,
+    setCurrentTime,
   }
 }
