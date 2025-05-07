@@ -1,20 +1,15 @@
 import { onUnmounted, ref, watch, type Ref } from 'vue'
-import { formatTime } from '../utils/formatTime'
 
 export const useAudioDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
-  const duration = ref<string>('0:00')
-  const currentTime = ref<string>('0:00')
-  const time = ref<number>(0)
+  const duration = ref<number>(0)
+  const currentTime = ref<number>(0)
 
   const handleLoadedMetaData = () => {
-    if (audioRef.value?.duration) duration.value = formatTime(audioRef.value.duration)
+    if (audioRef.value?.duration) duration.value = audioRef.value.duration
   }
 
   const handleTimeUpdate = () => {
-    if (audioRef.value?.currentTime) {
-      currentTime.value = formatTime(audioRef.value.currentTime)
-      time.value = audioRef.value.currentTime
-    }
+    if (audioRef.value?.currentTime) currentTime.value = audioRef.value.currentTime
   }
 
   watch(audioRef, (newAudio, oldAudio) => {
@@ -37,6 +32,5 @@ export const useAudioDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
   return {
     duration,
     currentTime,
-    time,
   }
 }

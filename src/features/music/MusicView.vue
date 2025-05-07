@@ -4,18 +4,18 @@ import PauseIcon from '@/shared/icons/PauseIcon.vue'
 import PlayIcon from '@/shared/icons/PlayIcon.vue'
 import PrevIcon from '@/shared/icons/PrevIcon.vue'
 import { useAudioPlayer } from './composables/useAudioPlayer'
+import { formatTime } from './utils/formatTime'
 
-const { isPlaying, pause, play, nextTrack, prevTrack, duration, currentTime, time } =
-  useAudioPlayer()
+const { isPlaying, pause, play, nextTrack, prevTrack, duration, currentTime } = useAudioPlayer()
 </script>
 <template>
   <main class="page">
     <div class="music-container">
       <div class="album-image"></div>
       <div class="music-info">
-        <span>{{ currentTime }}</span>
-        <input type="range" v-model="time" min="0" max="100" step="0.01" />
-        <span>{{ duration }}</span>
+        <span>{{ formatTime(currentTime) }}</span>
+        <input type="range" min="0" :max="duration" step="0.01" />
+        <span>{{ formatTime(duration) }}</span>
       </div>
       <div class="music-buttons">
         <button @click="prevTrack"><PrevIcon /></button>
