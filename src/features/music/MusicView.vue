@@ -6,8 +6,17 @@ import PrevIcon from '@/shared/icons/PrevIcon.vue'
 import { useAudioPlayer } from './composables/useAudioPlayer'
 import { formatTime } from './utils/formatTime'
 
-const { isPlaying, pause, play, nextTrack, prevTrack, duration, currentTime, setCurrentTime } =
-  useAudioPlayer()
+const {
+  isPlaying,
+  pause,
+  play,
+  nextTrack,
+  prevTrack,
+  duration,
+  currentTime,
+  setCurrentTime,
+  changeVolume,
+} = useAudioPlayer()
 </script>
 <template>
   <main class="page">
