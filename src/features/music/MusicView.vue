@@ -52,7 +52,7 @@ const {
   max-width: 368px;
   min-height: 500px;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 7px;
   padding: 10px;
   display: flex;
   flex-direction: column;
