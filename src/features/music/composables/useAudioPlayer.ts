@@ -4,22 +4,22 @@ import { useAudioDuration } from './useAudioDuration'
 import { useVolumeControl } from './useVolumeContoll'
 
 export const useAudioPlayer = () => {
-  let audio: HTMLAudioElement | null = null
+  const audioRef = ref<HTMLAudioElement | null>(null)
   const isPlaying = ref<boolean>(false)
   const trackIndex = ref<number>(0)
-  const { duration, currentTime, setCurrentTime } = useAudioDuration(audio)
-  const { volume, changeVolume } = useVolumeControl(audio)
+  const { duration, currentTime, setCurrentTime } = useAudioDuration(audioRef)
+  const { volume, changeVolume } = useVolumeControl(audioRef)
 
   const setupAudio = (index: number) => {
-    if (audio) {
-      audio.pause()
+    if (audioRef.value) {
+      audioRef.value.pause()
     }
-    audio = new Audio(musicMockData[index].src)
+    audioRef.value = new Audio(musicMockData[index].src)
 
-    audio.load()
+    audioRef.value.load()
 
     if (isPlaying.value) {
-      audio.play()
+      audioRef.value.play()
     }
   }
   onMounted(() => {
@@ -27,14 +27,12 @@ export const useAudioPlayer = () => {
   })
 
   const play = () => {
-    if (!audio) return
-    audio.play()
+    audioRef.value?.play()
     isPlaying.value = true
   }
 
   const pause = () => {
-    if (!audio) return
-    audio.pause()
+    audioRef.value?.pause()
     isPlaying.value = false
   }
 

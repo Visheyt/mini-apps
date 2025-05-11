@@ -1,23 +1,26 @@
-import { onUnmounted, ref } from 'vue'
+import { ref, watch, type Ref } from 'vue'
 
-export const useVolumeControl = (audio: HTMLAudioElement | null) => {
+export const useVolumeControl = (audio: Ref<HTMLAudioElement | null>) => {
   const volume = ref<number>(1)
 
   const changeVolume = (newVolumeLevel: number) => {
-    if (audio) {
-      audio.volume = newVolumeLevel
+    if (audio.value) {
+      audio.value.volume = newVolumeLevel
       volume.value = newVolumeLevel
     }
   }
 
   const handleLoadedMetaData = () => {
-    if (audio?.duration) volume.value = audio.volume
+    if (audio.value?.duration) volume.value = audio.value.volume
   }
-  audio?.addEventListener('loadedmetadata', handleLoadedMetaData)
 
-  onUnmounted(() => {
-    if (!audio) return
-    audio?.removeEventListener('loadedmetadata', handleLoadedMetaData)
+  watch(audio, (newAudio, oldAudio) => {
+    if (oldAudio) {
+      oldAudio.removeEventListener('loadedmetadata', handleLoadedMetaData)
+    }
+    if (newAudio) {
+      newAudio.addEventListener('loadedmetadata', handleLoadedMetaData)
+    }
   })
 
   return {
