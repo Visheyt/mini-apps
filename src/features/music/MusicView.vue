@@ -79,7 +79,7 @@ const {
 }
 .album-image {
   width: 100%;
-  background-color: aqua;
+  background-color: rgba(156, 158, 185, 0.201);
   border-radius: 7px;
   height: 350px;
 }

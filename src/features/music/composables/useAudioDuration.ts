@@ -1,38 +1,30 @@
-import { onUnmounted, ref, watch, type Ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 
-export const useAudioDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
+export const useAudioDuration = (audio: HTMLAudioElement | null) => {
   const duration = ref<number>(0)
   const currentTime = ref<number>(0)
 
   const setCurrentTime = (newCurrentTime: number) => {
-    if (audioRef.value) {
+    if (audio) {
       currentTime.value = newCurrentTime
-      audioRef.value.currentTime = newCurrentTime
+      audio.currentTime = newCurrentTime
     }
   }
   const handleLoadedMetaData = () => {
-    if (audioRef.value?.duration) duration.value = audioRef.value.duration
+    if (audio?.duration) duration.value = audio.duration
   }
 
   const handleTimeUpdate = () => {
-    if (audioRef.value?.currentTime) currentTime.value = audioRef.value.currentTime
+    if (audio?.currentTime) currentTime.value = audio.currentTime
   }
 
-  watch(audioRef, (newAudio, oldAudio) => {
-    if (oldAudio) {
-      oldAudio.removeEventListener('timeupdate', handleTimeUpdate)
-      oldAudio.removeEventListener('loadedmetadata', handleLoadedMetaData)
-    }
-    if (newAudio) {
-      newAudio.addEventListener('timeupdate', handleTimeUpdate)
-      newAudio.addEventListener('loadedmetadata', handleLoadedMetaData)
-    }
-  })
+  audio?.addEventListener('loadedmetadata', handleLoadedMetaData)
+  audio?.addEventListener('timeupdate', handleTimeUpdate)
 
   onUnmounted(() => {
-    if (!audioRef.value) return
-    audioRef.value?.removeEventListener('timeupdate', handleTimeUpdate)
-    audioRef.value?.removeEventListener('loadedmetadata', handleLoadedMetaData)
+    if (!audio) return
+    audio.removeEventListener('timeupdate', handleTimeUpdate)
+    audio.removeEventListener('loadedmetadata', handleLoadedMetaData)
   })
 
   return {
