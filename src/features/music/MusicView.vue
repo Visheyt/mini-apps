@@ -5,6 +5,8 @@ import PlayIcon from '@/shared/icons/PlayIcon.vue'
 import PrevIcon from '@/shared/icons/PrevIcon.vue'
 import { useAudioPlayer } from './composables/useAudioPlayer'
 import { formatTime } from './utils/formatTime'
+import VolumeMuteIcon from '@/shared/icons/VolumeMuteIcon.vue'
+import VolumeUpIcon from '@/shared/icons/VolumeUpIcon.vue'
 
 const {
   isPlaying,
@@ -15,7 +17,10 @@ const {
   duration,
   currentTime,
   setCurrentTime,
+  volume,
   changeVolume,
+  handleMute,
+  setMaxVolume,
 } = useAudioPlayer()
 </script>
 <template>
@@ -41,6 +46,22 @@ const {
         <button v-if="!isPlaying" @click="play"><PlayIcon /></button>
         <button v-else @click="pause"><PauseIcon /></button>
         <button @click="nextTrack"><NextIcon /></button>
+      </div>
+      <div class="volume-container">
+        <button class="volume-btn" @click="handleMute">
+          <VolumeMuteIcon />
+        </button>
+        <input
+          type="range"
+          :value="volume * 100"
+          max="100"
+          @input="
+            (event) => changeVolume(Number((event.currentTarget as HTMLInputElement).value) / 100)
+          "
+        />
+        <button class="volume-btn" @click="setMaxVolume">
+          <VolumeUpIcon />
+        </button>
       </div>
     </div>
   </main>
@@ -69,7 +90,7 @@ const {
   gap: 10px;
   width: 100%;
 }
-.music-info input {
+.music-container input {
   width: 100%;
 }
 .music-buttons {
@@ -81,5 +102,16 @@ const {
 
 .music-buttons svg {
   width: 40px;
+}
+.volume-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.volume-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
 }
 </style>
