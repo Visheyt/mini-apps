@@ -10,14 +10,6 @@ export const useVolumeControl = (audioRef: Ref<HTMLAudioElement | null>) => {
     }
   }
 
-  const handleMute = () => {
-    changeVolume(0)
-  }
-
-  const setMaxVolume = () => {
-    changeVolume(1)
-  }
-
   const handleLoadedMetaData = () => {
     if (audioRef.value?.duration) volume.value = audioRef.value.volume
   }
@@ -34,7 +26,5 @@ export const useVolumeControl = (audioRef: Ref<HTMLAudioElement | null>) => {
   return {
     changeVolume,
     volume,
-    handleMute,
-    setMaxVolume,
   }
 }

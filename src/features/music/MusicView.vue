@@ -19,8 +19,6 @@ const {
   setCurrentTime,
   volume,
   changeVolume,
-  handleMute,
-  setMaxVolume,
 } = useAudioPlayer()
 </script>
 <template>
@@ -48,7 +46,7 @@ const {
         <button @click="nextTrack"><NextIcon /></button>
       </div>
       <div class="volume-container">
-        <button class="volume-btn" @click="handleMute">
+        <button class="volume-btn" @click="changeVolume(0)">
           <VolumeMuteIcon />
         </button>
         <input
@@ -59,7 +57,7 @@ const {
             (event) => changeVolume(Number((event.currentTarget as HTMLInputElement).value) / 100)
           "
         />
-        <button class="volume-btn" @click="setMaxVolume">
+        <button class="volume-btn" @click="changeVolume(1)">
           <VolumeUpIcon />
         </button>
       </div>
