@@ -18,16 +18,20 @@ export const useAudioDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
     if (audioRef.value?.currentTime) currentTime.value = audioRef.value.currentTime
   }
 
-  watch(audioRef, (newAudio, oldAudio) => {
-    if (oldAudio) {
-      oldAudio.removeEventListener('timeupdate', handleTimeUpdate)
-      oldAudio.removeEventListener('loadedmetadata', handleLoadedMetaData)
-    }
-    if (newAudio) {
-      newAudio.addEventListener('timeupdate', handleTimeUpdate)
-      newAudio.addEventListener('loadedmetadata', handleLoadedMetaData)
-    }
-  })
+  watch(
+    audioRef,
+    (newAudio, oldAudio) => {
+      if (oldAudio) {
+        oldAudio.removeEventListener('timeupdate', handleTimeUpdate)
+        oldAudio.removeEventListener('loadedmetadata', handleLoadedMetaData)
+      }
+      if (newAudio) {
+        newAudio.addEventListener('timeupdate', handleTimeUpdate)
+        newAudio.addEventListener('loadedmetadata', handleLoadedMetaData)
+      }
+    },
+    { flush: 'post' },
+  )
 
   onUnmounted(() => {
     if (!audioRef.value) return

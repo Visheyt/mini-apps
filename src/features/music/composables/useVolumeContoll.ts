@@ -10,16 +10,16 @@ export const useVolumeControl = (audio: Ref<HTMLAudioElement | null>) => {
     }
   }
 
-  const handleLoadedMetaData = () => {
+  const handleVolumeChange = () => {
     if (audio.value?.duration) volume.value = audio.value.volume
   }
 
   watch(audio, (newAudio, oldAudio) => {
     if (oldAudio) {
-      oldAudio.removeEventListener('loadedmetadata', handleLoadedMetaData)
+      oldAudio.removeEventListener('volumechange', handleVolumeChange)
     }
     if (newAudio) {
-      newAudio.addEventListener('loadedmetadata', handleLoadedMetaData)
+      newAudio.addEventListener('volumechange', handleVolumeChange)
     }
   })
 

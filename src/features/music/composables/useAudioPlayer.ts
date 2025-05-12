@@ -2,6 +2,7 @@ import { ref, onMounted } from 'vue'
 import { musicMockData } from '../data/music-data'
 import { useAudioDuration } from './useAudioDuration'
 import { useVolumeControl } from './useVolumeContoll'
+import { useAudioData } from './useAudioData'
 
 export const useAudioPlayer = () => {
   const audioRef = ref<HTMLAudioElement | null>(null)
@@ -9,12 +10,14 @@ export const useAudioPlayer = () => {
   const trackIndex = ref<number>(0)
   const { duration, currentTime, setCurrentTime } = useAudioDuration(audioRef)
   const { volume, changeVolume } = useVolumeControl(audioRef)
+  const { setAudioData, audioData } = useAudioData()
 
   const setupAudio = (index: number) => {
     if (audioRef.value) {
       audioRef.value.pause()
     }
     audioRef.value = new Audio(musicMockData[index].src)
+    setAudioData(index)
 
     audioRef.value.load()
 
@@ -71,5 +74,6 @@ export const useAudioPlayer = () => {
     setCurrentTime,
     volume,
     changeVolume,
+    audioData,
   }
 }

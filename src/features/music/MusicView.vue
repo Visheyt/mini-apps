@@ -19,12 +19,18 @@ const {
   setCurrentTime,
   volume,
   changeVolume,
+  audioData,
 } = useAudioPlayer()
 </script>
 <template>
   <main class="page">
     <div class="music-container">
-      <div class="album-image"></div>
+      <div class="album-image-container">
+        <img :src="audioData.imgSrc" alt="album img" class="album-img" />
+      </div>
+      <div class="name-container">
+        {{ `${audioData.artist} - ${audioData.name}` }}
+      </div>
       <div class="music-info">
         <span>{{ formatTime(currentTime) }}</span>
         <input
@@ -75,13 +81,22 @@ const {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 20px;
 }
-.album-image {
+.album-image-container {
   width: 100%;
   background-color: rgba(156, 158, 185, 0.201);
   border-radius: 7px;
   height: 350px;
+}
+.album-img {
+  width: 100%;
+  border-radius: 7px;
+}
+.name-container {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
 }
 .music-info {
   display: flex;
