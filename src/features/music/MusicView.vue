@@ -39,6 +39,7 @@ const {
           :max="duration"
           :value="currentTime"
           step="0.01"
+          class="input-range"
           @input="
             (event) => setCurrentTime(Number((event.currentTarget as HTMLInputElement).value))
           "
@@ -59,6 +60,7 @@ const {
           type="range"
           :value="volume * 100"
           max="100"
+          class="input-range"
           @input="
             (event) => changeVolume(Number((event.currentTarget as HTMLInputElement).value) / 100)
           "
@@ -73,10 +75,12 @@ const {
 
 <style>
 .music-container {
+  background-color: rgba(255, 255, 255, 0.189);
+  box-shadow: 0 0 10px rgb(113, 113, 113);
+  z-index: 1;
   width: 100%;
   max-width: 368px;
   min-height: 500px;
-  border: 1px solid black;
   border-radius: 7px;
   padding: 10px;
   display: flex;
@@ -87,7 +91,7 @@ const {
   width: 100%;
   background-color: rgba(156, 158, 185, 0.201);
   border-radius: 7px;
-  height: 350px;
+  object-fit: cover;
 }
 .album-img {
   width: 100%;
@@ -97,6 +101,7 @@ const {
   width: 100%;
   text-align: center;
   font-size: 18px;
+  font-weight: 600;
 }
 .music-info {
   display: flex;
@@ -126,5 +131,8 @@ const {
   height: 35px;
   display: flex;
   align-items: center;
+}
+input[type='range'] {
+  accent-color: rgb(59, 59, 59);
 }
 </style>
