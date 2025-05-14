@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import NextIcon from '@/shared/icons/NextIcon.vue'
-import PauseIcon from '@/shared/icons/PauseIcon.vue'
-import PlayIcon from '@/shared/icons/PlayIcon.vue'
-import PrevIcon from '@/shared/icons/PrevIcon.vue'
 import { useAudioPlayer } from './composables/useAudioPlayer'
 import { formatTime } from './utils/formatTime'
-import VolumeMuteIcon from '@/shared/icons/VolumeMuteIcon.vue'
-import VolumeUpIcon from '@/shared/icons/VolumeUpIcon.vue'
+import VolumeContainer from './components/VolumeContainer.vue'
+import MusicButtons from './components/MusicButtons.vue'
 
 const {
   isPlaying,
@@ -46,29 +42,14 @@ const {
         />
         <span>{{ formatTime(duration) }}</span>
       </div>
-      <div class="music-buttons">
-        <button @click="prevTrack"><PrevIcon /></button>
-        <button v-if="!isPlaying" @click="play"><PlayIcon /></button>
-        <button v-else @click="pause"><PauseIcon /></button>
-        <button @click="nextTrack"><NextIcon /></button>
-      </div>
-      <div class="volume-container">
-        <button class="volume-btn" @click="changeVolume(0)">
-          <VolumeMuteIcon />
-        </button>
-        <input
-          type="range"
-          :value="volume * 100"
-          max="100"
-          class="input-range"
-          @input="
-            (event) => changeVolume(Number((event.currentTarget as HTMLInputElement).value) / 100)
-          "
-        />
-        <button class="volume-btn" @click="changeVolume(1)">
-          <VolumeUpIcon />
-        </button>
-      </div>
+      <MusicButtons
+        :next-track="nextTrack"
+        :prev-track="prevTrack"
+        :is-playing="isPlaying"
+        :play="play"
+        :pause="pause"
+      />
+      <VolumeContainer :volume="volume" :change-volume="changeVolume" />
     </div>
   </main>
 </template>
@@ -111,27 +92,7 @@ const {
 .music-container input {
   width: 100%;
 }
-.music-buttons {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  gap: 5px;
-}
 
-.music-buttons svg {
-  width: 40px;
-}
-.volume-container {
-  display: flex;
-  width: 100%;
-  align-items: center;
-}
-.volume-btn {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-}
 input[type='range'] {
   accent-color: rgb(59, 59, 59);
 }
