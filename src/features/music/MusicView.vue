@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useAudioPlayer } from './composables/useAudioPlayer'
-import { formatTime } from './utils/formatTime'
 import VolumeContainer from './components/VolumeContainer.vue'
 import MusicButtons from './components/MusicButtons.vue'
+import TimesContainer from './components/TimesContainer.vue'
 
 const {
   isPlaying,
@@ -27,28 +27,9 @@ const {
       <div class="name-container">
         {{ `${audioData.artist} - ${audioData.name}` }}
       </div>
-      <div class="music-info">
-        <span>{{ formatTime(currentTime) }}</span>
-        <input
-          type="range"
-          min="0"
-          :max="duration"
-          :value="currentTime"
-          step="0.01"
-          class="input-range"
-          @input="
-            (event) => setCurrentTime(Number((event.currentTarget as HTMLInputElement).value))
-          "
-        />
-        <span>{{ formatTime(duration) }}</span>
-      </div>
-      <MusicButtons
-        :next-track="nextTrack"
-        :prev-track="prevTrack"
-        :is-playing="isPlaying"
-        :play="play"
-        :pause="pause"
+      <TimesContainer :progress-props="{ currentTime, setCurrentTime, duration }" />
       />
+      <MusicButtons :controls="{ prevTrack, nextTrack, pause, play, isPlaying }" />
       <VolumeContainer :volume="volume" :change-volume="changeVolume" />
     </div>
   </main>
@@ -84,11 +65,7 @@ const {
   font-size: 18px;
   font-weight: 600;
 }
-.music-info {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-}
+
 .music-container input {
   width: 100%;
 }
