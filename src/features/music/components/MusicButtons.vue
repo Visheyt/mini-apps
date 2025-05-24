@@ -4,17 +4,13 @@ import PauseIcon from '@/shared/icons/PauseIcon.vue'
 import PlayIcon from '@/shared/icons/PlayIcon.vue'
 import PrevIcon from '@/shared/icons/PrevIcon.vue'
 
-const props = defineProps<{
-  controls: {
-    prevTrack: () => void
-    nextTrack: () => void
-    play: () => void
-    pause: () => void
-    isPlaying: boolean
-  }
+defineProps<{
+  prevTrack: () => void
+  nextTrack: () => void
+  play: () => void
+  pause: () => void
+  isPlaying: boolean
 }>()
-
-const { prevTrack, nextTrack, pause, play, isPlaying } = props.controls
 </script>
 
 <template>

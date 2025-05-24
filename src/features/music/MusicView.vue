@@ -19,7 +19,7 @@ const {
 } = useAudioPlayer()
 </script>
 <template>
-  <main class="page">
+  <main class="page music-page">
     <div class="music-container">
       <div class="album-image-container">
         <img :src="audioData.imgSrc" alt="album img" class="album-img" />
@@ -28,14 +28,24 @@ const {
         {{ `${audioData.artist} - ${audioData.name}` }}
       </div>
       <TimesContainer :progress-props="{ currentTime, setCurrentTime, duration }" />
+      <MusicButtons
+        :prev-track="prevTrack"
+        :next-track="nextTrack"
+        :is-playing="isPlaying"
+        :pause="pause"
+        :play="play"
       />
-      <MusicButtons :controls="{ prevTrack, nextTrack, pause, play, isPlaying }" />
       <VolumeContainer :volume="volume" :change-volume="changeVolume" />
     </div>
   </main>
 </template>
 
 <style>
+.music-page {
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
 .music-container {
   background-color: rgba(255, 255, 255, 0.189);
   box-shadow: 0 0 10px rgb(113, 113, 113);
