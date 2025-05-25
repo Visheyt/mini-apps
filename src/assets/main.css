@@ -1,9 +1,10 @@
 @import './base.css';
 
 #app {
-  max-width: 1440px;
   margin: 0 auto;
   padding: 20px;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
 }
 .page {
   display: flex;
@@ -11,6 +12,5 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  position: relative;
   min-height: 100%;
 }
