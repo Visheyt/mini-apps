@@ -16,10 +16,16 @@ export const useAudioPlayer = () => {
     if (audioRef.value) {
       audioRef.value.pause()
     }
+
+    const oldVolume = volume.value !== 1 ? volume.value : 1
+
     audioRef.value = new Audio(musicMockData[index].src)
+
     setAudioData(index)
 
     audioRef.value.load()
+
+    audioRef.value.volume = oldVolume
 
     if (isPlaying.value) {
       audioRef.value.play()

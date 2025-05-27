@@ -27,6 +27,7 @@ const {
       <div class="name-container">
         {{ `${audioData.artist} - ${audioData.name}` }}
       </div>
+
       <TimesContainer :progress-props="{ currentTime, setCurrentTime, duration }" />
       <MusicButtons :prev-track :next-track :is-playing="isPlaying" :pause :play />
       <VolumeContainer :volume="volume" :change-volume="changeVolume" />
