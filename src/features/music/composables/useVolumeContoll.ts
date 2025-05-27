@@ -14,6 +14,10 @@ export const useVolumeControl = (audio: Ref<HTMLAudioElement | null>) => {
     if (audio.value?.duration) volume.value = audio.value.volume
   }
 
+  const getVolume = () => {
+    return volume.value !== 1 ? volume.value : 1
+  }
+
   watch(audio, (newAudio, oldAudio) => {
     if (oldAudio) {
       oldAudio.removeEventListener('volumechange', handleVolumeChange)
@@ -26,5 +30,6 @@ export const useVolumeControl = (audio: Ref<HTMLAudioElement | null>) => {
   return {
     changeVolume,
     volume,
+    getVolume,
   }
 }

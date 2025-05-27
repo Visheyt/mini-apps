@@ -9,28 +9,26 @@ export const useAudioPlayer = () => {
   const isPlaying = ref<boolean>(false)
   const trackIndex = ref<number>(0)
   const { duration, currentTime, setCurrentTime } = useAudioDuration(audioRef)
-  const { volume, changeVolume } = useVolumeControl(audioRef)
+  const { volume, changeVolume, getVolume } = useVolumeControl(audioRef)
   const { setAudioData, audioData } = useAudioData()
 
   const setupAudio = (index: number) => {
     if (audioRef.value) {
       audioRef.value.pause()
     }
-
-    const oldVolume = volume.value !== 1 ? volume.value : 1
-
     audioRef.value = new Audio(musicMockData[index].src)
 
     setAudioData(index)
 
     audioRef.value.load()
 
-    audioRef.value.volume = oldVolume
+    audioRef.value.volume = getVolume()
 
     if (isPlaying.value) {
       audioRef.value.play()
     }
   }
+
   onMounted(() => {
     setupAudio(trackIndex.value)
   })
