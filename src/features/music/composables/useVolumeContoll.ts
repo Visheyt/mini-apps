@@ -2,6 +2,7 @@ import { ref, watch, type Ref } from 'vue'
 
 export const useVolumeControl = (audio: Ref<HTMLAudioElement | null>) => {
   const volume = ref<number>(1)
+  const volumeBeforeMute = ref<number>(1)
 
   const changeVolume = (newVolumeLevel: number) => {
     if (audio.value) {
@@ -18,6 +19,19 @@ export const useVolumeControl = (audio: Ref<HTMLAudioElement | null>) => {
     return volume.value !== 1 ? volume.value : 1
   }
 
+  const toggleMute = () => {
+    if (!audio.value) return
+
+    const currentVolume = audio.value.volume
+
+    if (currentVolume > 0) {
+      volumeBeforeMute.value = currentVolume
+      changeVolume(0)
+    } else {
+      changeVolume(volumeBeforeMute.value)
+    }
+  }
+
   watch(audio, (newAudio, oldAudio) => {
     if (oldAudio) {
       oldAudio.removeEventListener('volumechange', handleVolumeChange)
@@ -31,5 +45,6 @@ export const useVolumeControl = (audio: Ref<HTMLAudioElement | null>) => {
     changeVolume,
     volume,
     getVolume,
+    toggleMute,
   }
 }

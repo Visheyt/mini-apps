@@ -19,6 +19,7 @@ const {
   volume,
   changeVolume,
   audioData,
+  toggleMute,
 } = useAudioPlayer()
 </script>
 <template>
@@ -36,7 +37,7 @@ const {
       <div class="additional-buttons">
         <button><ShuffleIcon /></button>
         <button><RepeatIcon /></button>
-        <button><MuteIcon /></button>
+        <button @click="toggleMute" :class="volume === 0 ? 'active' : ''"><MuteIcon /></button>
       </div>
     </div>
   </main>
@@ -95,5 +96,12 @@ input[type='range'] {
   width: 100%;
   justify-content: center;
   gap: 20px;
+}
+.additional-buttons button {
+  transition: color 0.3s ease;
+  color: rgb(132, 132, 132);
+}
+.additional-buttons button.active {
+  color: black;
 }
 </style>

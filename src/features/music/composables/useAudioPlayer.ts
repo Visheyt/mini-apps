@@ -9,7 +9,7 @@ export const useAudioPlayer = () => {
   const isPlaying = ref<boolean>(false)
   const trackIndex = ref<number>(0)
   const { duration, currentTime, setCurrentTime } = useAudioDuration(audioRef)
-  const { volume, changeVolume, getVolume } = useVolumeControl(audioRef)
+  const { volume, changeVolume, getVolume, toggleMute } = useVolumeControl(audioRef)
   const { setAudioData, audioData } = useAudioData()
 
   const setupAudio = (index: number) => {
@@ -84,5 +84,6 @@ export const useAudioPlayer = () => {
     volume,
     changeVolume,
     audioData,
+    toggleMute,
   }
 }
