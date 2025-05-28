@@ -2,7 +2,7 @@ import { ref, watch, type Ref } from 'vue'
 
 export const useVolumeControl = (audio: Ref<HTMLAudioElement | null>) => {
   const volume = ref<number>(1)
-  const volumeBeforeMute = ref<number>(1)
+  const volumeBeforeMute = ref<number>(0.5)
 
   const changeVolume = (newVolumeLevel: number) => {
     if (audio.value) {

@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { formatTime } from '../utils/formatTime'
 
-const props = defineProps<{
-  progressProps: {
-    currentTime: number
-    setCurrentTime: (newTime: number) => void
-    duration: number
-  }
+defineProps<{
+  currentTime: number
+  setCurrentTime: (newTime: number) => void
+  duration: number
 }>()
-const { currentTime, setCurrentTime, duration } = props.progressProps
 </script>
 
 <template>
