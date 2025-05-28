@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAudioPlayer } from './composables/useAudioPlayer'
+import { useAudio } from './composables/useAudio'
 import VolumeContainer from './components/VolumeContainer.vue'
 import MusicButtons from './components/MusicButtons.vue'
 import TimesContainer from './components/TimesContainer.vue'
@@ -20,7 +20,7 @@ const {
   changeVolume,
   audioData,
   toggleMute,
-} = useAudioPlayer()
+} = useAudio()
 </script>
 <template>
   <main class="page music-page">
@@ -32,8 +32,8 @@ const {
         {{ `${audioData.artist} - ${audioData.name}` }}
       </div>
       <TimesContainer :currentTime :setCurrentTime :duration />
-      <MusicButtons :prev-track :next-track :is-playing="isPlaying" :pause :play />
-      <VolumeContainer :volume="volume" :change-volume="changeVolume" />
+      <MusicButtons :prev-track :next-track :isPlaying :pause :play />
+      <VolumeContainer :volume="volume" :change-volume />
       <div class="additional-buttons">
         <button><ShuffleIcon /></button>
         <button><RepeatIcon /></button>
@@ -100,6 +100,9 @@ input[type='range'] {
 .additional-buttons button {
   transition: color 0.3s ease;
   color: rgb(132, 132, 132);
+}
+.additional-buttons button:hover {
+  color: black;
 }
 .additional-buttons button.active {
   color: black;

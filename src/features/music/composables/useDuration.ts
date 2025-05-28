@@ -1,6 +1,6 @@
 import { onUnmounted, ref, watch, type Ref } from 'vue'
 
-export const useAudioDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
+export const useDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
   const duration = ref<number>(0)
   const currentTime = ref<number>(0)
 
