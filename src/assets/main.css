@@ -2,9 +2,9 @@
 
 #app {
   margin: 0 auto;
-  padding: 20px;
   font-family: 'Inter', sans-serif;
   overflow: hidden;
+  height: 100vh;
 }
 .page {
   display: flex;

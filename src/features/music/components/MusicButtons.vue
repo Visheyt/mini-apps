@@ -29,8 +29,16 @@ defineProps<{
   justify-content: center;
   gap: 5px;
 }
-
+.music-buttons button {
+  transition: color 0.3s ease;
+}
 .music-buttons svg {
   width: 40px;
+}
+
+@media (width>768px) {
+  .music-buttons button:hover {
+    color: rgb(108, 108, 108);
+  }
 }
 </style>

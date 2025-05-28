@@ -1,4 +1,4 @@
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { musicMockData } from '../data/music-data'
 import { useAudioDuration } from './useAudioDuration'
 import { useVolumeControl } from './useVolumeContoll'
@@ -28,10 +28,6 @@ export const useAudioPlayer = () => {
       audioRef.value.play()
     }
   }
-
-  onMounted(() => {
-    setupAudio(trackIndex.value)
-  })
 
   const play = () => {
     audioRef.value?.play()
@@ -66,6 +62,15 @@ export const useAudioPlayer = () => {
       play()
     }
   }
+
+  onMounted(() => {
+    setupAudio(trackIndex.value)
+  })
+
+  onUnmounted(() => {
+    audioRef.value?.pause()
+    audioRef.value = null
+  })
 
   return {
     pause,

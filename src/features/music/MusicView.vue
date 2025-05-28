@@ -3,6 +3,9 @@ import { useAudioPlayer } from './composables/useAudioPlayer'
 import VolumeContainer from './components/VolumeContainer.vue'
 import MusicButtons from './components/MusicButtons.vue'
 import TimesContainer from './components/TimesContainer.vue'
+import RepeatIcon from '@/shared/icons/RepeatIcon.vue'
+import MuteIcon from '@/shared/icons/MuteIcon.vue'
+import ShuffleIcon from '@/shared/icons/ShuffleIcon.vue'
 
 const {
   isPlaying,
@@ -27,10 +30,14 @@ const {
       <div class="name-container">
         {{ `${audioData.artist} - ${audioData.name}` }}
       </div>
-
       <TimesContainer :progress-props="{ currentTime, setCurrentTime, duration }" />
       <MusicButtons :prev-track :next-track :is-playing="isPlaying" :pause :play />
       <VolumeContainer :volume="volume" :change-volume="changeVolume" />
+      <div class="additional-buttons">
+        <button><ShuffleIcon /></button>
+        <button><RepeatIcon /></button>
+        <button><MuteIcon /></button>
+      </div>
     </div>
   </main>
 </template>
@@ -39,20 +46,23 @@ const {
 .music-page {
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
+  background: #360033;
+  background: -webkit-linear-gradient(to right, #0b8793, #360033);
+  background: linear-gradient(to right, #0b8793, #360033);
+  padding: 10px;
 }
+
 .music-container {
-  background-color: rgba(255, 255, 255, 0.189);
-  box-shadow: 0 0 10px rgb(113, 113, 113);
+  box-shadow: 0 0 2px #360033;
   z-index: 1;
   width: 100%;
-  max-width: 368px;
-  min-height: 500px;
+  max-width: 400px;
   border-radius: 7px;
-  padding: 10px;
+  padding: 10px 10px 20px 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  background-color: rgba(255, 255, 255, 0.897);
 }
 .album-image-container {
   width: 100%;
@@ -69,6 +79,7 @@ const {
   text-align: center;
   font-size: 18px;
   font-weight: 600;
+  height: 50px;
 }
 
 .music-container input {
@@ -77,5 +88,12 @@ const {
 
 input[type='range'] {
   accent-color: rgb(59, 59, 59);
+}
+
+.additional-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
 }
 </style>
