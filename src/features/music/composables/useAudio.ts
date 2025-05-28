@@ -1,8 +1,9 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { musicMockData } from '../data/music-data'
 import { useDuration } from './useDuration'
 import { useVolume } from './useVolume'
 import { useAudioData } from './useAudioData'
+import { useRepeat } from './useRepeat'
 
 export const useAudio = () => {
   const audioRef = ref<HTMLAudioElement | null>(null)
@@ -11,6 +12,7 @@ export const useAudio = () => {
   const { duration, currentTime, setCurrentTime } = useDuration(audioRef)
   const { volume, changeVolume, getVolume, toggleMute } = useVolume(audioRef)
   const { setAudioData, audioData } = useAudioData()
+  const { repeatMode, toggleRepeatMode } = useRepeat()
 
   const setupAudio = (index: number) => {
     if (audioRef.value) {
@@ -40,28 +42,47 @@ export const useAudio = () => {
   }
 
   const nextTrack = () => {
+    if (repeatMode.value === 'one') {
+      repeatTrack()
+      return
+    }
     if (trackIndex.value < musicMockData.length - 1) {
       trackIndex.value += 1
     } else {
       trackIndex.value = 0
     }
     setupAudio(trackIndex.value)
-    if (!isPlaying.value) {
-      play()
-    }
   }
 
   const prevTrack = () => {
+    if (repeatMode.value === 'one') {
+      repeatTrack()
+      return
+    }
     if (trackIndex.value > 0) {
       trackIndex.value -= 1
     } else {
       trackIndex.value = musicMockData.length - 1
     }
     setupAudio(trackIndex.value)
+  }
+
+  const repeatTrack = () => {
+    setupAudio(trackIndex.value)
     if (!isPlaying.value) {
       play()
     }
   }
+
+  watch(audioRef, (newAudio, oldAudio) => {
+    if (oldAudio) {
+      oldAudio.removeEventListener('ended', handleTrackEnd)
+    }
+
+    if (newAudio) {
+      newAudio.addEventListener('ended', handleTrackEnd)
+    }
+  })
 
   onMounted(() => {
     setupAudio(trackIndex.value)
@@ -69,8 +90,22 @@ export const useAudio = () => {
 
   onUnmounted(() => {
     audioRef.value?.pause()
+    audioRef.value?.removeEventListener('ended', handleTrackEnd)
     audioRef.value = null
   })
+
+  const handleTrackEnd = () => {
+    switch (repeatMode.value) {
+      case 'no':
+        break
+      case 'one':
+        repeatTrack()
+        break
+      case 'all':
+        nextTrack()
+        break
+    }
+  }
 
   return {
     pause,
@@ -85,5 +120,7 @@ export const useAudio = () => {
     changeVolume,
     audioData,
     toggleMute,
+    repeatMode,
+    toggleRepeatMode,
   }
 }

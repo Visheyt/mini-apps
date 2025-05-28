@@ -6,6 +6,7 @@ import TimesContainer from './components/TimesContainer.vue'
 import RepeatIcon from '@/shared/icons/RepeatIcon.vue'
 import MuteIcon from '@/shared/icons/MuteIcon.vue'
 import ShuffleIcon from '@/shared/icons/ShuffleIcon.vue'
+import RepeatOneIcon from '@/shared/icons/RepeatOneIcon.vue'
 
 const {
   isPlaying,
@@ -20,6 +21,8 @@ const {
   changeVolume,
   audioData,
   toggleMute,
+  repeatMode,
+  toggleRepeatMode,
 } = useAudio()
 </script>
 <template>
@@ -36,7 +39,10 @@ const {
       <VolumeContainer :volume="volume" :change-volume />
       <div class="additional-buttons">
         <button><ShuffleIcon /></button>
-        <button><RepeatIcon /></button>
+        <button @click="toggleRepeatMode" :class="repeatMode === 'no' ? '' : 'active'">
+          <RepeatIcon v-if="repeatMode === 'all' || repeatMode === 'no'" />
+          <RepeatOneIcon v-else />
+        </button>
         <button @click="toggleMute" :class="volume === 0 ? 'active' : ''"><MuteIcon /></button>
       </div>
     </div>
@@ -102,7 +108,7 @@ input[type='range'] {
   color: rgb(132, 132, 132);
 }
 .additional-buttons button:hover {
-  color: black;
+  color: rgb(40, 40, 40);
 }
 .additional-buttons button.active {
   color: black;
