@@ -43,5 +43,7 @@ export const useDuration = (audioRef: Ref<HTMLAudioElement | null>) => {
     duration,
     currentTime,
     setCurrentTime,
+    handleLoadedMetaData,
+    handleTimeUpdate,
   }
 }

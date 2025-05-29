@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { musicMockData } from '../data/music-data'
 
 export const useAudioData = () => {
@@ -7,6 +7,8 @@ export const useAudioData = () => {
     name: '',
     artist: '',
   })
+
+  const data = ref([...musicMockData])
 
   const setAudioData = (index: number) => {
     audioData.artist = musicMockData[index].artist
