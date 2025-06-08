@@ -11,7 +11,7 @@ export const useAudio = () => {
   const trackIndex = ref<number>(0)
   const { duration, currentTime, setCurrentTime } = useDuration(audioRef)
   const { volume, changeVolume, getVolume, toggleMute } = useVolume(audioRef)
-  const { setAudioData, audioData } = useAudioData()
+  const { setAudioData, audioData, shuffleData } = useAudioData()
   const { repeatMode, toggleRepeatMode } = useRepeat()
 
   const setupAudio = (index: number) => {
@@ -119,6 +119,7 @@ export const useAudio = () => {
     volume,
     changeVolume,
     audioData,
+    shuffleData,
     toggleMute,
     repeatMode,
     toggleRepeatMode,
