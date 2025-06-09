@@ -24,5 +24,6 @@ export const useAudioData = () => {
     audioData,
     setAudioData,
     shuffleData,
+    data,
   }
 }

@@ -1,24 +1,30 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { musicMockData } from '../data/music-data'
 import { useDuration } from './useDuration'
 import { useVolume } from './useVolume'
 import { useAudioData } from './useAudioData'
 import { useRepeat } from './useRepeat'
+import { useTracks } from './useTracks'
 
 export const useAudio = () => {
   const audioRef = ref<HTMLAudioElement | null>(null)
   const isPlaying = ref<boolean>(false)
-  const trackIndex = ref<number>(0)
   const { duration, currentTime, setCurrentTime } = useDuration(audioRef)
   const { volume, changeVolume, getVolume, toggleMute } = useVolume(audioRef)
-  const { setAudioData, audioData, shuffleData } = useAudioData()
+  const { data, setAudioData, audioData, shuffleData } = useAudioData()
   const { repeatMode, toggleRepeatMode } = useRepeat()
+  const { trackIndex, nextTrack, prevTrack } = useTracks({
+    repeatMode,
+    repeatTrack,
+    data,
+    setupAudio,
+  })
 
-  const setupAudio = (index: number) => {
+  function setupAudio(index: number) {
     if (audioRef.value) {
       audioRef.value.pause()
     }
-    audioRef.value = new Audio(musicMockData[index].src)
+
+    audioRef.value = new Audio(data.value[index].src)
 
     setAudioData(index)
 
@@ -31,6 +37,13 @@ export const useAudio = () => {
     }
   }
 
+  function repeatTrack() {
+    setupAudio(trackIndex.value)
+    if (!isPlaying.value) {
+      play()
+    }
+  }
+
   const play = () => {
     audioRef.value?.play()
     isPlaying.value = true
@@ -39,39 +52,6 @@ export const useAudio = () => {
   const pause = () => {
     audioRef.value?.pause()
     isPlaying.value = false
-  }
-
-  const nextTrack = () => {
-    if (repeatMode.value === 'one') {
-      repeatTrack()
-      return
-    }
-    if (trackIndex.value < musicMockData.length - 1) {
-      trackIndex.value += 1
-    } else {
-      trackIndex.value = 0
-    }
-    setupAudio(trackIndex.value)
-  }
-
-  const prevTrack = () => {
-    if (repeatMode.value === 'one') {
-      repeatTrack()
-      return
-    }
-    if (trackIndex.value > 0) {
-      trackIndex.value -= 1
-    } else {
-      trackIndex.value = musicMockData.length - 1
-    }
-    setupAudio(trackIndex.value)
-  }
-
-  const repeatTrack = () => {
-    setupAudio(trackIndex.value)
-    if (!isPlaying.value) {
-      play()
-    }
   }
 
   watch(audioRef, (newAudio, oldAudio) => {

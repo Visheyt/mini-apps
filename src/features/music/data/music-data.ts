@@ -1,4 +1,12 @@
-export const musicMockData = [
+export type Track = {
+  id: number
+  artist: string
+  name: string
+  img: string
+  src: string
+}
+
+export const musicMockData: Track[] = [
   {
     id: 0,
     artist: 'Madonna',

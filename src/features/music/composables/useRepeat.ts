@@ -1,9 +1,9 @@
 import { ref } from 'vue'
 
-type RepeatType = 'no' | 'one' | 'all'
+export type RepeatType = 'no' | 'one' | 'all'
 
 export const useRepeat = () => {
-  const repeatMode = ref<RepeatType>('no')
+  const repeatMode = ref<RepeatType>('all')
 
   const toggleRepeatMode = () => {
     switch (repeatMode.value) {
