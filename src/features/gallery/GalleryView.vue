@@ -19,7 +19,7 @@ const handleSearch = () => {
 }
 </script>
 <template>
-  <div class="page">
+  <div class="page gallery">
     <input
       type="search"
       placeholder="Enter your search request"
@@ -40,6 +40,15 @@ const handleSearch = () => {
 </template>
 
 <style>
+.gallery {
+  padding-top: 80px;
+  padding-inline: 20px;
+}
+@media (width>768px) {
+  .gallery {
+    padding: 20px;
+  }
+}
 .images-container {
   display: flex;
   flex-wrap: wrap;
