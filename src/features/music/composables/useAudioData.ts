@@ -10,10 +10,6 @@ export const useAudioData = () => {
 
   const data = ref([...musicMockData])
 
-  const shuffleData = () => {
-    data.value.sort(() => Math.random() - 0.5)
-  }
-
   const setAudioData = (index: number) => {
     audioData.artist = data.value[index].artist
     audioData.name = data.value[index].name
@@ -23,7 +19,6 @@ export const useAudioData = () => {
   return {
     audioData,
     setAudioData,
-    shuffleData,
     data,
   }
 }

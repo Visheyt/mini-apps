@@ -4,13 +4,14 @@ import { useVolume } from './useVolume'
 import { useAudioData } from './useAudioData'
 import { useRepeat } from './useRepeat'
 import { useTracks } from './useTracks'
+import { useShuffle } from './useShuffle'
 
 export const useAudio = () => {
   const audioRef = ref<HTMLAudioElement | null>(null)
   const isPlaying = ref<boolean>(false)
   const { duration, currentTime, setCurrentTime } = useDuration(audioRef)
   const { volume, changeVolume, getVolume, toggleMute } = useVolume(audioRef)
-  const { data, setAudioData, audioData, shuffleData } = useAudioData()
+  const { data, setAudioData, audioData } = useAudioData()
   const { repeatMode, toggleRepeatMode } = useRepeat()
   const { trackIndex, nextTrack, prevTrack } = useTracks({
     repeatMode,
@@ -18,6 +19,8 @@ export const useAudio = () => {
     data,
     setupAudio,
   })
+
+  const { isShuffle, shuffleData } = useShuffle({ data, trackIndex })
 
   function setupAudio(index: number) {
     if (audioRef.value) {
@@ -64,6 +67,10 @@ export const useAudio = () => {
     }
   })
 
+  watch(trackIndex, (newTrack) => {
+    setupAudio(newTrack)
+  })
+
   onMounted(() => {
     setupAudio(trackIndex.value)
   })
@@ -99,9 +106,10 @@ export const useAudio = () => {
     volume,
     changeVolume,
     audioData,
-    shuffleData,
     toggleMute,
     repeatMode,
     toggleRepeatMode,
+    shuffleData,
+    isShuffle,
   }
 }
