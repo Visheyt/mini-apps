@@ -40,7 +40,7 @@ const {
       <MusicButtons :prev-track :next-track :isPlaying :pause :play />
       <VolumeContainer :volume="volume" :change-volume />
       <div class="additional-buttons">
-        <button @click="shuffleData" :class="isShuffle ? 'active' : ''"><ShuffleIcon /></button>
+        <button @click="shuffleData" :class="isShuffle ? 'active' : 'inactive'"><ShuffleIcon /></button>
         <button @click="toggleRepeatMode" :class="repeatMode === 'no' ? '' : 'active'">
           <RepeatIcon v-if="repeatMode === 'all' || repeatMode === 'no'" />
           <RepeatOneIcon v-else />
