@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import WeatherView from '../features/weather/WeatherView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,17 +7,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'weather',
-      component: WeatherView,
+      component: ()=>import('../../pages/weather')
     },
     {
       path: '/gallery',
       name: 'gallery',
-      component: () => import('../features/gallery/GalleryView.vue'),
+      component: () => import('../../pages/gallery'),
     },
     {
       path: '/music',
       name: 'music',
-      component: () => import('../features/music/MusicView.vue'),
+      component: () => import('../../pages/music'),
     },
   ],
 })

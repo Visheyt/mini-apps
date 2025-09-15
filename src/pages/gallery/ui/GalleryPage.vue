@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { useFetch } from '@/shared/composables/useFetch'
-import ImageCard from './components/image-card/ImageCard.vue'
-import { getRandomImages } from './api/getRandomImages'
+import { getRandomImages } from '../api/getRandomImages'
 import { onMounted } from 'vue'
-import type { ImageResponse } from './api/types'
-import { getImages } from './api/getImages'
+import type { ImageResponse } from '../api/types'
+import { getImages } from '../api/getImages'
+import ImageCard from '../components/image-card/ImageCard.vue'
 
 const searchModel = defineModel<string>({ default: '' })
 

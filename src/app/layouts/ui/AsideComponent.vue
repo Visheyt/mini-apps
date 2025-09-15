@@ -1,37 +1,21 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
-import { navData } from '../data/nav-data'
-import MenuCloseIcon from '../icons/MenuCloseIcon.vue'
-import { useRoute } from 'vue-router'
-import MenuOpenIcon from '../icons/MenuOpenIcon.vue'
+import MenuCloseIcon from '@/shared/icons/MenuCloseIcon.vue'
+import MenuOpenIcon from '@/shared/icons/MenuOpenIcon.vue'
+import { asideData } from '../model/aside-data'
+import { useAside } from '../model/useAside'
 
-const isOpen = ref<boolean>(false)
-
-const asideRef = ref<HTMLElement | null>(null)
-const route = useRoute()
-
-const handleClose = () => {
-  isOpen.value = false
-}
-
-const handleOpen = () => {
-  isOpen.value = true
-}
-
-watch(route, () => {
-  isOpen.value = false
-})
+const { handleClose, handleOpen, isOpen } = useAside()
 </script>
 
 <template>
   <button @click="handleOpen" class="menu-btn open-btn"><MenuOpenIcon /></button>
-  <aside class="aside" :class="isOpen ? 'open' : 'close'" ref="asideRef">
+  <aside class="aside" :class="isOpen ? 'open' : 'close'">
     <div class="logo">
       <h1>Mini Apps</h1>
       <button @click="handleClose" class="menu-btn"><MenuCloseIcon /></button>
     </div>
     <nav class="nav">
-      <RouterLink v-for="item in navData" :key="item.id" :to="item.to">
+      <RouterLink v-for="item in asideData" :key="item.id" :to="item.to">
         <component :is="item.icon" />
         <span>{{ item.name }}</span>
       </RouterLink>

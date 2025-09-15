@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useAudio } from './composables/useAudio'
-import VolumeContainer from './components/VolumeContainer.vue'
-import MusicButtons from './components/MusicButtons.vue'
-import TimesContainer from './components/TimesContainer.vue'
+import { useAudio } from '../composables/useAudio'
 import RepeatIcon from '@/shared/icons/RepeatIcon.vue'
 import MuteIcon from '@/shared/icons/MuteIcon.vue'
 import ShuffleIcon from '@/shared/icons/ShuffleIcon.vue'
 import RepeatOneIcon from '@/shared/icons/RepeatOneIcon.vue'
+import TimesContainer from '../components/TimesContainer.vue'
+import MusicButtons from '../components/MusicButtons.vue'
+import VolumeContainer from '../components/VolumeContainer.vue'
 
 const {
   isPlaying,

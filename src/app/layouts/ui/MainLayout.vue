@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import HeaderComponent from './shared/components/AsideComponent.vue'
+import AsideComponent from './AsideComponent.vue'
 </script>
 
 <template>
-  <HeaderComponent />
+  <AsideComponent />
   <RouterView />
 </template>
-
-<style scoped></style>
