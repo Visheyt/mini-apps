@@ -1,5 +1,5 @@
 import { baseUrl, key } from '.'
-import type { ImageResponse } from './types'
+import type { ImageResponse } from '../../../widgets/gallery/models/types'
 
 export const getRandomImages = async () => {
   try {

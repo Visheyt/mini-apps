@@ -85,7 +85,3 @@ interface UserLinks {
   likes: string
   portfolio: string
 }
-
-export interface DownloadUrlRes {
-  url: string
-}

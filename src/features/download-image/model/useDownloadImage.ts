@@ -1,6 +1,6 @@
+import { getDownloadUrl } from '@/features/download-image/api/getDownloadUrl'
 import { useFetch } from '@/shared/composables/useFetch'
-import { getDownloadUrl } from '../api/getDownloadUrl'
-import type { DownloadUrlRes } from '../api/types'
+import type { DownloadUrlRes } from './types'
 
 export const useDownloadImage = (download_location: string) => {
   const { data, execute } = useFetch<DownloadUrlRes>()

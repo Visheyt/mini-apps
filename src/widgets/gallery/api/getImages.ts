@@ -1,5 +1,5 @@
-import { baseUrl, key } from '.'
-import type { ImageResponse } from './types'
+import { baseUrl, key } from '@/widgets/gallery/api'
+import type { ImageResponse } from '../models/types'
 
 export const getImages = async (query: string): Promise<ImageResponse[]> => {
   try {

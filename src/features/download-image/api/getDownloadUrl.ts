@@ -1,5 +1,5 @@
-import { key } from '.'
-import type { DownloadUrlRes } from './types'
+import { key } from '../../../widgets/gallery/api'
+import type { DownloadUrlRes } from '../model/types'
 
 export const getDownloadUrl = async (downloadLocation: string) => {
   try {
