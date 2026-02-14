@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { navData } from '../data/nav-data'
-import MenuCloseIcon from '../icons/MenuCloseIcon.vue'
+import { navData } from '../../data/nav-data'
 import { useRoute } from 'vue-router'
-import MenuOpenIcon from '../icons/MenuOpenIcon.vue'
+import MenuCloseIcon from '@/shared/icons/MenuCloseIcon.vue'
+import MenuOpenIcon from '@/shared/icons/MenuOpenIcon.vue'
 
 const isOpen = ref<boolean>(false)
 

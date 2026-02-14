@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Aside from '@/shared/components/Aside.vue'
+import { Aside } from '@/shared/ui'
 import { RouterView } from 'vue-router'
 </script>
 
