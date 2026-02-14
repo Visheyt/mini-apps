@@ -1,13 +1,16 @@
 <script lang="ts" setup>
 import { images } from '@/entity/image'
 import ImageCard from '@/features/gallery/components/image-card/ImageCard.vue'
-import { computed, ref } from 'vue'
+import { computed, onBeforeMount, onMounted, ref, useTemplateRef } from 'vue'
+import { Spinner } from '@/shared/ui'
 
 const searchModel = ref('')
 
 const searchQuery = ref('')
 
-const { data: randomImages, isLoading, isError } = images.random()
+const { data: randomImages, isLoading } = images.random()
+
+const search = useTemplateRef<HTMLInputElement>('search')
 
 const {
   data: searchImages,
@@ -28,21 +31,25 @@ const handleSearch = () => {
     refetchSearch()
   }
 }
+
+onMounted(() => search.value?.focus())
 </script>
 <template>
   <div class="page gallery">
     <input
+      ref="search"
       type="search"
       placeholder="Enter your search request"
       v-model="searchModel"
       class="input"
       @keyup.enter="handleSearch"
     />
-    <div class="images-container">
+    <Spinner v-if="isLoading || isSearchLoading" />
+    <div class="images-container" v-else>
       <ImageCard
         v-for="(item, index) in imagesToShow"
         :key="index"
-        :img-src="item.urls.full"
+        :img-src="item.urls.regular"
         :download-link="item.links.download_location"
       />
     </div>
@@ -73,12 +80,12 @@ const handleSearch = () => {
   width: 100%;
   max-width: 550px;
   border: none;
-  box-shadow: 0 0 10px rgb(164, 164, 164);
+  box-shadow: 0 0 5px rgb(164, 164, 164);
   transition: box-shadow 0.5s ease;
 }
 .input:focus-visible {
   border: none;
   outline: none;
-  box-shadow: 0 0 10px rgb(69, 69, 69);
+  box-shadow: 0 0 5px rgb(69, 69, 69);
 }
 </style>
