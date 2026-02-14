@@ -1,21 +1,32 @@
 <script lang="ts" setup>
-import { useFetch } from '@/shared/composables/useFetch'
+import { images } from '@/entity/image'
 import ImageCard from '@/features/gallery/components/image-card/ImageCard.vue'
-import { getRandomImages } from '../../features/gallery/api/getRandomImages'
-import { onMounted } from 'vue'
-import type { ImageResponse } from '../../features/gallery/api/types'
-import { getImages } from '../../features/gallery/api/getImages'
+import { computed, ref } from 'vue'
 
-const searchModel = defineModel<string>({ default: '' })
+const searchModel = ref('')
 
-const { loading, error, data, execute } = useFetch<ImageResponse[]>()
+const searchQuery = ref('')
 
-onMounted(() => {
-  execute(getRandomImages)
+const { data: randomImages, isLoading, isError } = images.random()
+
+const {
+  data: searchImages,
+  isLoading: isSearchLoading,
+  refetch: refetchSearch,
+} = images.get(searchQuery)
+
+const imagesToShow = computed(() => {
+  if (searchQuery.value.length > 2) {
+    return searchImages.value ?? []
+  }
+  return randomImages.value ?? []
 })
 
 const handleSearch = () => {
-  execute(() => getImages(searchModel.value))
+  if (searchModel.value.length > 2) {
+    searchQuery.value = searchModel.value
+    refetchSearch()
+  }
 }
 </script>
 <template>
@@ -27,15 +38,14 @@ const handleSearch = () => {
       class="input"
       @keyup.enter="handleSearch"
     />
-    <div class="images-container" v-if="!loading && !error">
+    <div class="images-container">
       <ImageCard
-        v-for="(item, index) in data"
+        v-for="(item, index) in imagesToShow"
         :key="index"
-        :img-src="item.urls.regular"
+        :img-src="item.urls.full"
         :download-link="item.links.download_location"
       />
     </div>
-    <div v-else>LOADING....</div>
   </div>
 </template>
 
