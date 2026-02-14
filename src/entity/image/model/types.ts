@@ -95,3 +95,7 @@ export interface RandomImagesResponse {
   total_pages: number
   results: ImageResponse[]
 }
+
+export interface DownloadUrlRes {
+  url: string
+}

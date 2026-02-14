@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import DownloadIcon from '@/shared/icons/DownloadIcon.vue'
-import { useDownloadImage } from '../../composables/useDownloadImage'
+import { useDownloadImage } from '../model/use-download-image'
 
 const { imgSrc, downloadLink } = defineProps<{
   imgSrc: string

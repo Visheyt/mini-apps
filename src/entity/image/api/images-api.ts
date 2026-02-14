@@ -1,5 +1,5 @@
 import unsplashApi from '@/app/axios/axios'
-import type { ImageResponse, RandomImagesResponse } from '../model/types'
+import type { DownloadUrlRes, ImageResponse, RandomImagesResponse } from '../model/types'
 import type { AxiosResponse } from 'axios'
 
 const getImages = async (query: string) => {
@@ -18,7 +18,14 @@ const getRandomImages = async () => {
   return response.data
 }
 
+const getDownloadUrl = async (downloadLocation: string) => {
+  const response: AxiosResponse<DownloadUrlRes> = await unsplashApi.get(`${downloadLocation}`)
+
+  return response.data
+}
+
 export const api = {
   getImages,
   getRandomImages,
+  getDownloadUrl,
 }

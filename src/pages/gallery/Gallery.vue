@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { images } from '@/entity/image'
-import ImageCard from '@/features/gallery/components/image-card/ImageCard.vue'
-import { computed, onBeforeMount, onMounted, ref, useTemplateRef } from 'vue'
+import { ImageCard } from '@/entity/image'
+import { computed, onMounted, ref, useTemplateRef } from 'vue'
 import { Spinner } from '@/shared/ui'
 
 const searchModel = ref('')
@@ -19,10 +19,7 @@ const {
 } = images.get(searchQuery)
 
 const imagesToShow = computed(() => {
-  if (searchQuery.value.length > 2) {
-    return searchImages.value ?? []
-  }
-  return randomImages.value ?? []
+  return searchQuery.value.length > 2 ? (searchImages.value ?? []) : (randomImages.value ?? [])
 })
 
 const handleSearch = () => {

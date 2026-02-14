@@ -3,7 +3,7 @@ import { api } from '../api/images-api'
 import { imagesKeys } from './keys'
 import type { Ref } from 'vue'
 
-export const useGetImages = (query: Ref<string>) => {
+const useGetImages = (query: Ref<string>) => {
   return useQuery({
     queryKey: [imagesKeys.images, query],
     queryFn: () => api.getImages(query.value),
@@ -11,7 +11,7 @@ export const useGetImages = (query: Ref<string>) => {
   })
 }
 
-export const useGetRandomImages = () => {
+const useGetRandomImages = () => {
   return useQuery({
     queryKey: [imagesKeys.randomImages],
     queryFn: api.getRandomImages,

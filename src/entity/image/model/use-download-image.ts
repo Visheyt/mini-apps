@@ -1,13 +1,9 @@
-import { useFetch } from '@/shared/composables/useFetch'
-import { getDownloadUrl } from '../api/getDownloadUrl'
-import type { DownloadUrlRes } from '../api/types'
+import { api } from '@/entity/image/api/images-api'
 
 export const useDownloadImage = (download_location: string) => {
-  const { data, execute } = useFetch<DownloadUrlRes>()
-
   const handleDownload = async () => {
-    await execute(() => getDownloadUrl(download_location))
-    const url = data.value?.url
+    const { url } = await api.getDownloadUrl(download_location)
+
     if (!url) {
       return
     }
